@@ -1,0 +1,54 @@
+       username       | posts_count | total_views | total_likes | avg_views_per_post 
+----------------------+-------------+-------------+-------------+--------------------
+ dmytro_tkachenko     |          12 |        7382 |          63 |              615.2
+ olena_bondarenko     |           9 |       10543 |          42 |             1171.4
+ kateryna_shevchuk    |           5 |        4652 |          28 |              930.4
+ serhii_oliynyk       |           5 |        5243 |          20 |             1048.6
+ andrii_melnyk        |           4 |        3035 |          21 |              758.8
+ natalia_kravchenko   |           4 |         834 |          30 |              208.5
+ volodymyr_polishchuk |           4 |        3226 |          22 |              806.5
+ yulia_lysenko        |           4 |        4537 |          23 |             1134.3
+ maksym_bondar        |           3 |        1247 |          23 |              415.7
+ anna_moroz           |           2 |        2771 |           0 |             1385.5
+(10 rows)
+
+   category_name   | posts_count | total_views | avg_likes 
+-------------------+-------------+-------------+-----------
+ DevOps            |           6 |        3207 |      5.17
+ Архітектура ПЗ    |           6 |        6366 |      4.17
+ Безпека           |           6 |        2713 |      4.50
+ Веброзробка       |           6 |        7694 |      4.67
+ Мобільні додатки  |           6 |        7306 |      5.83
+ Тестування        |           6 |        5118 |      4.83
+ Хмарні технології |           6 |        4147 |      6.67
+ Штучний інтелект  |           6 |        4325 |      6.50
+ UX/UI             |           2 |         991 |      4.00
+ Бази даних        |           2 |        1603 |      5.00
+(10 rows)
+
+ total_posts | total_comments_all_statuses | approved_comments | avg_approved_per_post | max_approved 
+-------------+-----------------------------+-------------------+-----------------------+--------------
+          52 |                         311 |               255 |                  4.90 |            9
+(1 row)
+
+  status  | count 
+----------+-------
+ approved |   277
+ pending  |    36
+ rejected |    22
+(3 rows)
+
+      tag       | posts_count | avg_views 
+----------------+-------------+-----------
+ продуктивність |          14 |       698
+ практика       |          13 |       499
+ огляд          |          12 |      1118
+ оптимізація    |          11 |       950
+ досвід         |           9 |      1029
+ новачкам       |           6 |      1281
+ безпека        |           4 |       520
+ best-practices |           2 |      1612
+ cloudfront     |           2 |       510
+ ddd            |           2 |      1424
+(10 rows)
+
