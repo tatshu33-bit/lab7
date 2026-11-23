@@ -1,0 +1,196 @@
+{
+  "posts_by_status": {
+    "published": 52,
+    "draft": 4,
+    "archived": 4
+  },
+  "topAuthors": [
+    {
+      "username": "dmytro_tkachenko",
+      "posts_count": 12,
+      "total_views": 7382,
+      "total_likes": 63
+    },
+    {
+      "username": "olena_bondarenko",
+      "posts_count": 9,
+      "total_views": 10543,
+      "total_likes": 42
+    },
+    {
+      "username": "kateryna_shevchuk",
+      "posts_count": 5,
+      "total_views": 4652,
+      "total_likes": 28
+    },
+    {
+      "username": "serhii_oliynyk",
+      "posts_count": 5,
+      "total_views": 5243,
+      "total_likes": 20
+    },
+    {
+      "username": "andrii_melnyk",
+      "posts_count": 4,
+      "total_views": 3035,
+      "total_likes": 21
+    },
+    {
+      "username": "natalia_kravchenko",
+      "posts_count": 4,
+      "total_views": 834,
+      "total_likes": 30
+    },
+    {
+      "username": "volodymyr_polishchuk",
+      "posts_count": 4,
+      "total_views": 3226,
+      "total_likes": 22
+    },
+    {
+      "username": "yulia_lysenko",
+      "posts_count": 4,
+      "total_views": 4537,
+      "total_likes": 23
+    },
+    {
+      "username": "maksym_bondar",
+      "posts_count": 3,
+      "total_views": 1247,
+      "total_likes": 23
+    },
+    {
+      "username": "anna_moroz",
+      "posts_count": 2,
+      "total_views": 2771,
+      "total_likes": 0
+    }
+  ],
+  "popularCategories": [
+    {
+      "category_name": "DevOps",
+      "posts_count": 6,
+      "total_views": 3207,
+      "avg_likes": 5.17
+    },
+    {
+      "category_name": "Архітектура ПЗ",
+      "posts_count": 6,
+      "total_views": 6366,
+      "avg_likes": 4.17
+    },
+    {
+      "category_name": "Безпека",
+      "posts_count": 6,
+      "total_views": 2713,
+      "avg_likes": 4.5
+    },
+    {
+      "category_name": "Веброзробка",
+      "posts_count": 6,
+      "total_views": 7694,
+      "avg_likes": 4.67
+    },
+    {
+      "category_name": "Мобільні додатки",
+      "posts_count": 6,
+      "total_views": 7306,
+      "avg_likes": 5.83
+    },
+    {
+      "category_name": "Тестування",
+      "posts_count": 6,
+      "total_views": 5118,
+      "avg_likes": 4.83
+    },
+    {
+      "category_name": "Хмарні технології",
+      "posts_count": 6,
+      "total_views": 4147,
+      "avg_likes": 6.67
+    },
+    {
+      "category_name": "Штучний інтелект",
+      "posts_count": 6,
+      "total_views": 4325,
+      "avg_likes": 6.5
+    },
+    {
+      "category_name": "UX/UI",
+      "posts_count": 2,
+      "total_views": 991,
+      "avg_likes": 4
+    },
+    {
+      "category_name": "Бази даних",
+      "posts_count": 2,
+      "total_views": 1603,
+      "avg_likes": 5
+    }
+  ],
+  "commentStats": {
+    "total_posts": 52,
+    "total_comments_all_statuses": 311,
+    "approved_comments": 255,
+    "avg_approved_per_post": 4.9,
+    "max_approved": 9
+  },
+  "comments_by_status": {
+    "approved": 277,
+    "pending": 36,
+    "rejected": 22
+  },
+  "topTags": [
+    {
+      "tag": "продуктивність",
+      "posts_count": 14
+    },
+    {
+      "tag": "практика",
+      "posts_count": 13
+    },
+    {
+      "tag": "огляд",
+      "posts_count": 12
+    },
+    {
+      "tag": "оптимізація",
+      "posts_count": 11
+    },
+    {
+      "tag": "досвід",
+      "posts_count": 9
+    },
+    {
+      "tag": "новачкам",
+      "posts_count": 6
+    },
+    {
+      "tag": "безпека",
+      "posts_count": 4
+    },
+    {
+      "tag": "best-practices",
+      "posts_count": 2
+    },
+    {
+      "tag": "cloudfront",
+      "posts_count": 2
+    },
+    {
+      "tag": "ddd",
+      "posts_count": 2
+    }
+  ],
+  "totals": {
+    "users": 20,
+    "categories": 10,
+    "posts": 60,
+    "comments": 335,
+    "tags": 61,
+    "reactions": 322,
+    "versions": 26,
+    "notifications": 312,
+    "views_total": 43470
+  }
+}
