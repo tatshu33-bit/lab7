@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аналітика блогу</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="container bar"><h1>📊 Аналітична панель</h1><nav><a href="index.html">← До блогу</a><button id="reload">Оновити</button></nav></div></header>
+<main class="container">
+  <div class="cards" id="cards"></div>
+  <div class="charts" id="charts"></div>
+  <div class="panel"><h2>Кеш запитів</h2><div id="cacheInfo" class="muted"></div>
+    <p class="muted" style="margin-top:.5rem">Перший запит до кожного показника — <b>MISS</b> (рахує MongoDB), наступні протягом 60 с — <b>HIT</b> (відповідь із пам'яті сервера).</p></div>
+</main>
+<script src="charts.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+async function get(name) {
+  const t = performance.now(), r = await fetch("/api/analytics/" + name);
+  if (!r.ok) throw new Error(name + ": HTTP " + r.status);
+  return { data: await r.json(), cache: r.headers.get("X-Cache"), ms: Math.round(performance.now() - t) };
+}
+async function load() {
+  try {
+    const names = ["overview", "authors", "categories", "tags", "timeline", "views_daily", "comments_status", "ratings", "geo"];
+    const res = Object.fromEntries(await Promise.all(names.map(async n => [n, await get(n)])));
+    const o = res.overview.data;
+    $("cards").innerHTML = [["Опублікованих постів", o.posts], ["Активних користувачів", o.users], ["Переглядів", o.views], ["Лайків / дизлайків", o.likes + " / " + o.dislikes],
+      ["Коментарів (усі статуси)", o.comments_total], ["Середньо схвалених на пост", o.avg_approved_comments_per_post]].map(([k, v]) => `<div class="card">${k}<b>${v}</b></div>`).join("");
+    const C = $("charts"); C.innerHTML = "";
+    const add = (title, svg) => C.insertAdjacentHTML("beforeend", `<div class="panel chart"><h3>${title}</h3>${svg}</div>`);
+    const d = n => res[n].data;
+    add("Топ-10 авторів за кількістю постів", Charts.hbar(d("authors").map(x => [x.username, x.posts])));
+    add("Категорії за кількістю постів", Charts.hbar(d("categories").map(x => [x.name, x.posts])));
+    add("Публікації за місяцями", Charts.bars(d("timeline").map(x => [x.month, x.posts])));
+    add("Перегляди за місяцями (за датою публікації постів)", Charts.line(d("timeline").map(x => [x.month, x.views])));
+    add("Перегляди за днями (останні 30 днів із бакетів)", Charts.line(d("views_daily").map(x => [x.day.slice(5), x.views])));
+    add("Статуси коментарів (модерація)", Charts.donut(d("comments_status").map(x => [{ approved: "схвалено", pending: "очікує", rejected: "відхилено" }[x.status] || x.status, x.n])));
+    add("Найпопулярніші теги", Charts.hbar(d("tags").map(x => ["#" + x.tag, x.posts])));
+    add("Розподіл постів за рейтингом (лайки − дизлайки)", Charts.bars(d("ratings").map(x => [({ "-100": "< 0", 0: "0–2", 3: "3–5", 6: "6–9", 10: "10+" })[x._id] || x._id, x.posts])));
+    add("Географія: пости за містами", Charts.hbar(d("geo").map(x => [x.city, x.posts])));
+    $("cacheInfo").innerHTML = "<table class='t'><tr><th>Показник</th><th>X-Cache</th><th>Час відповіді, мс</th></tr>" +
+      names.map(n => `<tr><td>${n}</td><td>${res[n].cache}</td><td>${res[n].ms}</td></tr>`).join("") + "</table>";
+    const st = await (await fetch("/api/cache/stats")).json();
+    $("cacheInfo").insertAdjacentHTML("beforeend", `<p style="margin-top:.6rem">Записів: ${st.entries}, влучань: ${st.hits}, промахів: ${st.misses}, hit ratio: ${st.hit_ratio}, інвалідацій: ${st.invalidations}</p>`);
+  } catch (e) { $("cards").innerHTML = `<p class="muted">API недоступне: ${e.message}. Запустіть сервер: npm start.</p>`; }
+}
+$("reload").onclick = load; load();
+</script>
+</body>
+</html>

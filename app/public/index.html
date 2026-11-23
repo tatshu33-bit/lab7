@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ТехноБлог на MongoDB</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="container bar">
+  <h1>📝 ТехноБлог на MongoDB</h1>
+  <nav>
+    <button data-view="feed" class="active">Стрічка</button>
+    <button data-view="new">Нова стаття</button>
+    <button data-view="moderation" id="navMod" hidden>Модерація</button>
+    <button id="bell">🔔<span id="bellCount" class="badge" hidden>0</span></button>
+    <a href="dashboard.html">📊 Аналітика</a>
+  </nav>
+  <select id="userSel" title="Поточний користувач (демо-вхід без пароля)"></select>
+</div></header>
+
+<main class="container">
+  <!-- Стрічка -->
+  <section id="view-feed">
+    <form class="filters" id="filters">
+      <div><label>Повнотекстовий пошук</label><input id="fQ" placeholder="назва або зміст…"></div>
+      <div><label>Теги (через кому)</label><input id="fTags" placeholder="mongodb, практика"></div>
+      <div><label>Теги: режим</label><select id="fMode"><option value="all">усі (AND)</option><option value="any">будь-який (OR)</option></select></div>
+      <div><label>Категорія</label><select id="fCat"><option value="">усі</option></select></div>
+      <div><label>Автор</label><select id="fAuthor"><option value="">усі</option></select></div>
+      <div><label>Від дати</label><input type="date" id="fFrom"></div>
+      <div><label>До дати</label><input type="date" id="fTo"></div>
+      <div><label>Сортування</label><select id="fSort"><option value="new">новіші</option><option value="popular">за переглядами</option><option value="rated">за рейтингом</option><option value="comments">за коментарями</option><option value="old">старіші</option></select></div>
+      <div><label>Поблизу (місто)</label><select id="fCity"><option value="">— не обрано —</option>
+        <option value="30.5234,50.4501">Київ</option><option value="24.0297,49.8397">Львів</option><option value="25.3254,50.7472">Луцьк</option><option value="36.2304,49.9935">Харків</option><option value="30.7233,46.4825">Одеса</option><option value="35.0462,48.4647">Дніпро</option></select></div>
+      <div><label>Радіус, км</label><input type="number" id="fRadius" value="150" min="1" max="2000"></div>
+      <div><button class="btn" type="submit">Шукати</button> <button class="btn sec" type="button" id="fReset">Скинути</button></div>
+    </form>
+    <div class="muted" id="resultInfo"></div>
+    <div id="postsGrid" class="posts-grid"></div>
+    <div id="pager" class="pager"></div>
+  </section>
+
+  <!-- Форма статті -->
+  <section id="view-new" hidden>
+    <div class="panel">
+      <h2 id="formTitle">Нова стаття</h2>
+      <form id="postForm">
+        <input type="hidden" id="pId"><input type="hidden" id="pVersion">
+        <div class="form-row"><label>Назва (3–200 символів)</label><input id="pTitle" required minlength="3" maxlength="200"></div>
+        <div class="grid2">
+          <div class="form-row"><label>Категорія</label><select id="pCat" required></select></div>
+          <div class="form-row"><label>Теги (через кому)</label><input id="pTags" placeholder="mongodb, nosql"></div>
+        </div>
+        <div class="form-row"><label>Короткий опис</label><input id="pExcerpt" maxlength="300"></div>
+        <div class="form-row"><label>Зміст (мінімум 100 символів)</label><textarea id="pContent" required minlength="100"></textarea></div>
+        <div class="grid2">
+          <div class="form-row"><label>Зображення (URL)</label><input id="pImage" type="url" placeholder="https://…"></div>
+          <div class="form-row"><label>Статус</label><select id="pStatus"><option value="published">опублікувати</option><option value="draft">чернетка</option></select></div>
+        </div>
+        <div class="grid3">
+          <div class="form-row"><label>Місце (необов'язково)</label><input id="pPlace" placeholder="Луцьк"></div>
+          <div class="form-row"><label>Довгота (lon)</label><input id="pLon" type="number" step="any"></div>
+          <div class="form-row"><label>Широта (lat)</label><input id="pLat" type="number" step="any"></div>
+        </div>
+        <div class="form-row" id="noteRow" hidden><label>Коментар до редагування</label><input id="pNote" maxlength="200"></div>
+        <button class="btn" type="submit" id="pSubmit">Зберегти</button>
+        <button class="btn sec" type="button" id="pCancel">Скасувати</button>
+        <p class="muted" style="margin-top:.6rem">Створювати та редагувати пости можуть автори й адміністратори — оберіть користувача вгорі.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Модерація -->
+  <section id="view-moderation" hidden>
+    <div class="panel"><h2>Модерація коментарів</h2>
+      <div class="actions"><label>Статус: <select id="modStatus"><option value="pending">очікують перевірки</option><option value="approved">схвалені</option><option value="rejected">відхилені</option></select></label></div>
+      <div id="modList"></div></div>
+  </section>
+
+  <!-- Сповіщення -->
+  <section id="view-notif" hidden>
+    <div class="panel"><h2>Сповіщення</h2><div class="actions"><button class="btn sm" id="readAll">Позначити всі прочитаними</button></div><div id="notifList"></div></div>
+  </section>
+</main>
+
+<div id="postModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeModal">&times;</span><div id="postDetails"></div></div></div>
+<script src="app.js"></script>
+</body>
+</html>
